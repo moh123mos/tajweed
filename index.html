@@ -1,1 +1,2738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أنوار التجويد من الكتاب المبين ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ستايلات الواجهة الرئيسية */
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background: #fdf6f0;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            opacity: 0.5;
+            animation: headerBg 20s linear infinite;
+        }
+
+        @keyframes headerBg {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+        header h1 {
+            font-size: 32px;
+            color: #bf360c;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header p {
+            font-size: 18px;
+            color: #6d4c41;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out 0.3s;
+            animation-fill-mode: backwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-content {
+            display: block;
+            padding: 30px 20px;
+        }
+
+        .lessons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #f0e0d0;
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 160, 0, 0.05) 0%, transparent 70%);
+            transform: scale(0);
+            border-radius: 50%;
+            transition: transform 0.5s ease-out;
+            z-index: 0;
+        }
+
+        .card:hover::before {
+            transform: scale(1);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #e65100;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: #795548;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .view-lecture-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #ff7043, #f4511e);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(255, 112, 67, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card .view-lecture-btn:hover {
+            background: linear-gradient(45deg, #f4511e, #ff7043);
+            box-shadow: 0 6px 15px rgba(255, 112, 67, 0.5);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: #ffe0b2;
+            font-size: 15px;
+            color: #5d4037;
+            border-top: 2px solid #ffcc80;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        footer .copyright {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #8d6e63;
+        }
+
+        /* ستايلات المحاضرات المخفية وزر الرجوع */
+        .lecture-content {
+            display: none;
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        /* ستايلات المحاضرة الأولى (المحتوى الأكورديوني) */
+        .lecture-content.lesson1-style h1 {
+            text-align: center;
+            color: #e65100;
+        }
+
+        .lecture-content.lesson1-style .accordion {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson1-style .card-accordion {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson1-style .card-accordion h2 {
+            margin: 0;
+            padding: 15px;
+            background: #ff9800;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson1-style .content-accordion {
+            display: none;
+            padding: 20px;
+            background: #fffde7;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .lecture-content.lesson1-style .card-accordion.active .content-accordion {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lecture-content.lesson1-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffe0b2;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson1-style code {
+            background: #ef6c00;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson1-style .quiz-riddle,
+        .lecture-content.lesson1-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson1-style .quiz-riddle strong,
+        .lecture-content.lesson1-style .quranic-insight strong {
+            color: #e65100;
+        }
+
+        /* ستايلات المحاضرة الثانية (أحكام النون الساكنة والتنوين) */
+        .lecture-content.lesson2-style {
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        }
+
+        .lecture-content.lesson2-style h1 {
+            font-size: 26px;
+            color: #6a1b9a;
+            margin-bottom: 20px;
+        }
+
+        .lecture-content.lesson2-style .intro {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .lecture-content.lesson2-style .accordion-lesson2 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson2-style .card-lesson2 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .lecture-content.lesson2-style .card-lesson2 h2 {
+            margin: 0;
+            padding: 15px;
+            background-color: #ce93d8;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .lecture-content.lesson2-style .content-lesson2 {
+            padding: 20px;
+            display: none;
+            font-size: 16px;
+            line-height: 1.8;
+            background-color: #fafafa;
+        }
+
+        .lecture-content.lesson2-style .card-lesson2.active .content-lesson2 {
+            display: block;
+            animation: fade 0.5s ease-in-out;
+        }
+
+        .lecture-content.lesson2-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f3e5f5;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson2-style code {
+            background: #222;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .lecture-content.lesson2-style strong {
+            color: #8e24aa;
+        }
+
+        .lecture-content.lesson2-style .quiz-riddle,
+        .lecture-content.lesson2-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson2-style .quiz-riddle strong,
+        .lecture-content.lesson2-style .quranic-insight strong {
+            color: #6a1b9a;
+        }
+
+        /* ستايلات المحاضرة الثالثة (أحكام الميم الساكنة) */
+        .lecture-content.lesson3-style {
+            background: linear-gradient(135deg, #fce4ec, #e0f7fa);
+        }
+
+        .lecture-content.lesson3-style h1 {
+            text-align: center;
+            font-size: 26px;
+            color: #6a1b9a;
+            margin-bottom: 20px;
+        }
+
+        .lecture-content.lesson3-style .accordion-lesson3 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .lecture-content.lesson3-style .card-lesson3 {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lecture-content.lesson3-style .card-lesson3 h2 {
+            padding: 15px;
+            background: #ab47bc;
+            color: #fff;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .lecture-content.lesson3-style .content-lesson3 {
+            display: none;
+            padding: 20px;
+            background: #f9f9f9;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .lecture-content.lesson3-style .card-lesson3.active .content-lesson3 {
+            display: block;
+            animation: fade 0.4s ease-in-out;
+        }
+
+        .lecture-content.lesson3-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8bbd0;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson3-style code {
+            background: #222;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .lecture-content.lesson3-style strong {
+            color: #8e24aa;
+        }
+
+        .lecture-content.lesson3-style .quiz-riddle,
+        .lecture-content.lesson3-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson3-style .quiz-riddle strong,
+        .lecture-content.lesson3-style .quranic-insight strong {
+            color: #ab47bc;
+        }
+
+        /* ستايلات المحاضرة الرابعة (درس المدود) */
+        .lecture-content.lesson4-style {
+            background: linear-gradient(135deg, #f0f4c3, #c8e6c9);
+        }
+
+        .lecture-content.lesson4-style h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #33691e;
+            margin-bottom: 15px;
+        }
+
+        .lecture-content.lesson4-style .intro-lesson4 {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .lecture-content.lesson4-style .accordion-lesson4 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .lecture-content.lesson4-style .card-lesson4 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s;
+        }
+
+        .lecture-content.lesson4-style .card-lesson4:hover {
+            transform: translateY(-3px);
+        }
+
+        .lecture-content.lesson4-style .card-lesson4 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #aed581;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson4-style .content-lesson4 {
+            display: none;
+            padding: 20px;
+            background: #f9fbe7;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .lecture-content.lesson4-style .card-lesson4.active .content-lesson4 {
+            display: block;
+            animation: fadein 0.4s ease-in-out;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lecture-content.lesson4-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #dcedc8;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson4-style code {
+            background: #2e3d49;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .lecture-content.lesson4-style strong {
+            color: #558b2f;
+        }
+
+        .lecture-content.lesson4-style .quiz-riddle,
+        .lecture-content.lesson4-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson4-style .quiz-riddle strong,
+        .lecture-content.lesson4-style .quranic-insight strong {
+            color: #33691e;
+        }
+
+        /* staيلات المحاضرة الخامسة (صفات الحروف) */
+        .lecture-content.lesson5-style {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+        }
+
+        .lecture-content.lesson5-style h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #bf360c;
+            margin-bottom: 15px;
+        }
+
+        .lecture-content.lesson5-style .intro-lesson5 {
+            text-align: center;
+            font-size: 17px;
+            margin-bottom: 25px;
+            color: #4e342e;
+        }
+
+        .lecture-content.lesson5-style .accordion-lesson5 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .lecture-content.lesson5-style .card-lesson5 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lecture-content.lesson5-style .card-lesson5 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #ff8a65;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson5-style .content-lesson5 {
+            display: none;
+            padding: 20px;
+            background: #fff8f0;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4e342e;
+        }
+
+        .lecture-content.lesson5-style .card-lesson5.active .content-lesson5 {
+            display: block;
+            animation: fade 0.4s ease-in-out;
+        }
+
+        .lecture-content.lesson5-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffe082;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson5-style code {
+            background: #3e2723;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .lecture-content.lesson5-style strong {
+            color: #d84315;
+        }
+
+        .lecture-content.lesson5-style .quiz-riddle,
+        .lecture-content.lesson5-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson5-style .quiz-riddle strong,
+        .lecture-content.lesson5-style .quranic-insight strong {
+            color: #bf360c;
+        }
+
+        /* ستايلات المحاضرة السادسة (مخارج الحروف) */
+        .lecture-content.lesson6-style {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        }
+
+        .lecture-content.lesson6-style h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+
+        .lecture-content.lesson6-style .intro-lesson6 {
+            text-align: center;
+            margin: 15px auto 25px;
+            font-size: 16px;
+            color: #388e3c;
+        }
+
+        .lecture-content.lesson6-style .accordion-lesson6 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .lecture-content.lesson6-style .card-lesson6 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .lecture-content.lesson6-style .card-lesson6 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #81c784;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson6-style .content-lesson6 {
+            display: none;
+            padding: 20px;
+            background: #f1f8e9;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2e7d32;
+        }
+
+        .lecture-content.lesson6-style .card-lesson6.active .content-lesson6 {
+            display: block;
+            animation: fade 0.4s ease-in-out;
+        }
+
+        .lecture-content.lesson6-style .image {
+            margin: 15px auto;
+            text-align: center;
+        }
+
+        .lecture-content.lesson6-style .image img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 2px solid #c8e6c9;
+        }
+
+        .lecture-content.lesson6-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #a5d6a7;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson6-style code {
+            background: #2e7d32;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson6-style strong {
+            color: #1b5e20;
+        }
+
+        .lecture-content.lesson6-style .quiz-riddle,
+        .lecture-content.lesson6-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson6-style .quiz-riddle strong,
+        .lecture-content.lesson6-style .quranic-insight strong {
+            color: #1b5e20;
+        }
+
+        /* ستايلات المحاضرة السابعة (المتماثلين والمتقاربين والمتجانسين) */
+        .lecture-content.lesson7-style {
+            background: linear-gradient(135deg, #ede7f6, #e3f2fd);
+        }
+
+        .lecture-content.lesson7-style h1 {
+            text-align: center;
+            color: #4a148c;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson7-style .accordion-lesson7 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson7-style .card-lesson7 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson7-style .card-lesson7 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #7e57c2;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson7-style .content-lesson7 {
+            display: none;
+            padding: 20px;
+            background: #f3e5f5;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1a237e;
+        }
+
+        .lecture-content.lesson7-style .card-lesson7.active .content-lesson7 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson7-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #d1c4e9;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson7-style code {
+            background: #4a148c;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson7-style strong {
+            color: #4a148c;
+        }
+
+        .lecture-content.lesson7-style .quiz-riddle,
+        .lecture-content.lesson7-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson7-style .quiz-riddle strong,
+        .lecture-content.lesson7-style .quranic-insight strong {
+            color: #4a148c;
+        }
+
+        /* ستايلات المحاضرة الثامنة (التفخيم والترقيق) */
+        .lecture-content.lesson8-style {
+            background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+        }
+
+        .lecture-content.lesson8-style h1 {
+            text-align: center;
+            color: #2e7d32;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson8-style .accordion-lesson8 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson8-style .card-lesson8 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson8-style .card-lesson8 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #43a047;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson8-style .content-lesson8 {
+            display: none;
+            padding: 20px;
+            background: #e0f2f1;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1b5e20;
+        }
+
+        .lecture-content.lesson8-style .card-lesson8.active .content-lesson8 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson8-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #c8e6c9;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson8-style code {
+            background: #2e7d32;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson8-style strong {
+            color: #2e7d32;
+        }
+
+        .lecture-content.lesson8-style .quiz-riddle,
+        .lecture-content.lesson8-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson8-style .quiz-riddle strong,
+        .lecture-content.lesson8-style .quranic-insight strong {
+            color: #2e7d32;
+        }
+
+        /* ستايلات المحاضرة التاسعة (اللامات في القرآن) */
+        .lecture-content.lesson9-style {
+            background: linear-gradient(135deg, #e0f7fa, #fff3e0);
+        }
+
+        .lecture-content.lesson9-style h1 {
+            text-align: center;
+            color: #006064;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson9-style .accordion-lesson9 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson9-style .card-lesson9 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson9-style .card-lesson9 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #0097a7;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson9-style .content-lesson9 {
+            display: none;
+            padding: 20px;
+            background: #e0f2f1;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1a237e;
+        }
+
+        .lecture-content.lesson9-style .card-lesson9.active .content-lesson9 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson9-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #b2ebf2;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson9-style code {
+            background: #00838f;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson9-style strong {
+            color: #006064;
+        }
+
+        .lecture-content.lesson9-style .quiz-riddle,
+        .lecture-content.lesson9-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson9-style .quiz-riddle strong,
+        .lecture-content.lesson9-style .quranic-insight strong {
+            color: #006064;
+        }
+
+        /* ستايلات المحاضرة العاشرة (الوقف والابتداء) */
+        .lecture-content.lesson10-style {
+            background: linear-gradient(135deg, #f1f8e9, #e3f2fd);
+        }
+
+        .lecture-content.lesson10-style h1 {
+            text-align: center;
+            color: #33691e;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson10-style .accordion-lesson10 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson10-style .card-lesson10 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson10-style .card-lesson10 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #689f38;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson10-style .content-lesson10 {
+            display: none;
+            padding: 20px;
+            background: #f9fbe7;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1a237e;
+        }
+
+        .lecture-content.lesson10-style .card-lesson10.active .content-lesson10 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson10-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #dcedc8;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson10-style code {
+            background: #33691e;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson10-style strong {
+            color: #33691e;
+        }
+
+        .lecture-content.lesson10-style .quiz-riddle,
+        .lecture-content.lesson10-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson10-style .quiz-riddle strong,
+        .lecture-content.lesson10-style .quranic-insight strong {
+            color: #33691e;
+        }
+
+        /* ستايلات المحاضرة الحادية عشرة (أحكام متفرقة في التجويد) */
+        .lecture-content.lesson11-style {
+            background: linear-gradient(135deg, #fff8e1, #fce4ec);
+        }
+
+        .lecture-content.lesson11-style h1 {
+            text-align: center;
+            color: #bf360c;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson11-style .accordion-lesson11 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson11-style .card-lesson11 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson11-style .card-lesson11 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #ff7043;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson11-style .content-lesson11 {
+            display: none;
+            padding: 20px;
+            background: #fff3e0;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4e342e;
+        }
+
+        .lecture-content.lesson11-style .card-lesson11.active .content-lesson11 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson11-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffe0b2;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson11-style code {
+            background: #bf360c;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson11-style strong {
+            color: #bf360c;
+        }
+
+        .lecture-content.lesson11-style .quiz-riddle,
+        .lecture-content.lesson11-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson11-style .quiz-riddle strong,
+        .lecture-content.lesson11-style .quranic-insight strong {
+            color: #bf360c;
+        }
+
+        /* ستايلات المحاضرة الثانية عشرة (مقارنات في رواية حفص) */
+        .lecture-content.lesson12-style {
+            background: linear-gradient(135deg, #e3f2fd, #e0f2f1);
+        }
+
+        .lecture-content.lesson12-style h1 {
+            text-align: center;
+            color: #1a237e;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.lesson12-style .accordion-lesson12 {
+            max-width: 100%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .lecture-content.lesson12-style .card-lesson12 {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .lecture-content.lesson12-style .card-lesson12 h2 {
+            margin: 0;
+            padding: 15px;
+            background: #42a5f5;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .lecture-content.lesson12-style .content-lesson12 {
+            display: none;
+            padding: 20px;
+            background: #e3f2fd;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1a237e;
+        }
+
+        .lecture-content.lesson12-style .card-lesson12.active .content-lesson12 {
+            display: block;
+            animation: fade 0.3s ease-in-out;
+        }
+
+        .lecture-content.lesson12-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #90caf9;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson12-style code {
+            background: #1a237e;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .lecture-content.lesson12-style strong {
+            color: #1a237e;
+        }
+
+        .lecture-content.lesson12-style .quiz-riddle,
+        .lecture-content.lesson12-style .quranic-insight {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f7f7f7;
+            border: 1px solid #eee;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .lecture-content.lesson12-style .quiz-riddle strong,
+        .lecture-content.lesson12-style .quranic-insight strong {
+            color: #1a237e;
+        }
+
+        /* Special styles for Intro and Conclusion lectures */
+        .lecture-content.intro-conclusion-style {
+            background: linear-gradient(135deg, #fff8e1, #fff3e0);
+        }
+
+        .lecture-content.intro-conclusion-style h1 {
+            text-align: center;
+            color: #e65100;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .lecture-content.intro-conclusion-style p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #5d4037;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        .lecture-content.intro-conclusion-style .poem {
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 18px;
+            color: #bf360c;
+            line-height: 1.6;
+        }
+
+        .lecture-content.intro-conclusion-style .signature-section {
+            text-align: center;
+            font-size: 16px;
+            color: #6d4c41;
+            margin-top: 30px;
+            border-top: 1px dashed #ff9800;
+            padding-top: 20px;
+        }
+
+        .lecture-content.intro-conclusion-style .signature-section strong {
+            color: #e65100;
+        }
+
+        .lecture-content.intro-conclusion-style footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffe0b2;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            color: #5d4037;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .social-link:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .facebook {
+            background: linear-gradient(45deg, #1877f2, #42a5f5);
+            color: white;
+        }
+
+        .twitter {
+            background: linear-gradient(45deg, #1da1f2, #64b5f6);
+            color: white;
+        }
+
+        .youtube {
+            background: linear-gradient(45deg, #ff0000, #ff5722);
+            color: white;
+        }
+
+        .instagram {
+            background: linear-gradient(45deg, #e4405f, #f06292, #ff9800, #ffeb3b);
+            color: white;
+        }
+
+        .telegram {
+            background: linear-gradient(45deg, #0088cc, #29b6f6);
+            color: white;
+        }
+
+        .whatsapp {
+            background: linear-gradient(45deg, #25d366, #66bb6a);
+            color: white;
+        }
+
+        .social-link svg {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover svg {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .social-link {
+                width: 45px;
+                height: 45px;
+            }
+
+            .social-link svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>نور وكتاب مبين في تجويد القران الكريم ✨</h1>
+        <p>رحلتك الميسرة لإتقان تلاوة القرآن الكريم برواية حفص عن عاصم 📖</p>
+    </header>
+
+    <div class="main-content" id="mainContent">
+        <div class="lessons" id="lessonsGrid">
+            <div class="card" onclick="showLecture('intro')">
+                <h2>مقدمة: رحلة القرآن الكريم 🕌</h2>
+                <p>تعرف على تاريخ جمع القرآن وعلم التجويد ورواية حفص عن عاصم.</p>
+                <button class="view-lecture-btn">عرض المقدمة</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson1')">
+                <h2>1. أحكام الاستعاذة والبسملة 🤲</h2>
+                <p>تعرف على القواعد الصحيحة للبدء بتلاوة القرآن الكريم.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson2')">
+                <h2>2. أحكام النون الساكنة والتنوين 💡</h2>
+                <p>شرح تفصيلي لأحكام الإظهار، الإدغام، الإقلاب، والإخفاء.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson3')">
+                <h2>3. أحكام الميم الساكنة 📝</h2>
+                <p>تعلم الإخفاء الشفوي، والإدغام الشفوي، والإظهار الشفوي.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson4')">
+                <h2>4. أحكام المدود 📏</h2>
+                <p>اكتشف أنواع المدود المختلفة وكيفية تطبيقها في التلاوة.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson5')">
+                <h2>5. صفات الحروف 🗣️</h2>
+                <p>فهم الصفات التي تُميز كل حرف عن الآخر.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson6')">
+                <h2>6. مخارج الحروف 📍</h2>
+                <p>تعلم من أين يخرج كل حرف من حروف الهجاء.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson7')">
+                <h2>7. المتماثلان والمتجانسان والمتقاربان 🤝</h2>
+                <p>شرح العلاقات بين الحروف في التلاوة.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson8')">
+                <h2>8. التفخيم والترقيق ⬆️⬇️</h2>
+                <p>متى تُفخم الحروف ومتى ترقق لتحقيق جمال التلاوة.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson9')">
+                <h2>9. اللامات في القرآن 🌙☀️</h2>
+                <p>أحكام اللام الشمسية والقمرية ولام لفظ الجلالة.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson10')">
+                <h2>10. الوقف والابتداء 🛑▶️</h2>
+                <p>أين تقف وكيف تبدأ لضمان المعنى الصحيح.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson11')">
+                <h2>11. أحكام متفرقة في التجويد 🧩</h2>
+                <p>مجموعة من القواعد الهامة الأخرى في علم التجويد.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson12')">
+                <h2>12. مقارنات في رواية حفص ⚖️</h2>
+                <p>فروقات وتمييزات مهمة في رواية حفص عن عاصم.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('lesson13')">
+                <h2>13. تاء التأنيث والمقطوع والموصول في الرسم العثماني 🌸📖</h2>
+                <p>استكشاف قواعد تاء التأنيث والمقطوع والموصول في الرسم العثماني.</p>
+                <button class="view-lecture-btn">عرض الدرس</button>
+            </div>
+            <div class="card" onclick="showLecture('conclusion')">
+                <h2>خاتمة: شرف العلم وفضل القرآن 🌟</h2>
+                <p>تأملات في فضل القرآن وحفظه، وكلمة أخيرة.</p>
+                <button class="view-lecture-btn">عرض الخاتمة</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lecture-intro" class="lecture-content intro-conclusion-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>مقدمة: رحلة القرآن الكريم إلينا وأنوار التجويد 🕌</h1>
+        <p>
+            يا له من شرف عظيم أن نتعلم ونُعلِّم كتاب الله! إن القرآن الكريم هو كلام الله المنزل على قلب نبينا محمد صلى
+            الله عليه وسلم، والذي وصل إلينا عبر أجيال متتالية من الصحابة والتابعين وعلماء الأمة، في رحلة عظيمة من الحفظ
+            والنقل الدقيق.
+        </p>
+        <p>
+            لقد اعتنى المسلمون بالقرآن عناية فائقة، فجمعوه وكتبوه وحفظوه في الصدور والسطور، ودرسوا كل صغيرة وكبيرة تتعلق
+            به. ومن أجل أن يُتلى القرآن كما أنزل، نشأ علم التجويد، وهو العلم الذي يبحث في كيفية أداء الحروف وإخراجها من
+            مخارجها الصحيحة وإعطاء كل حرف حقه ومستحقه.
+        </p>
+        <p>
+            في هذا العمل المبارك، نعتمد على رواية الإمام <strong>حفص عن عاصم</strong>. وعاصم بن أبي النجود الكوفي هو أحد
+            القراء السبعة المعروفين، وشيخ القراءة في الكوفة. وقد تلقى قراءته عن كبار التابعين. أما حفص بن سليمان الكوفي،
+            فهو تلميذ عاصم وربيبه، وأكثر من أخذ عنه القراءة وإتقانها، وهو من أضبط الناس لقراءة عاصم. هذه الرواية هي
+            الأكثر انتشارًا في العالم الإسلامي، وبها نتلو كتاب الله اليوم.
+        </p>
+        <p style="text-align: center; margin-top: 25px;">
+            نسأل الله أن يجعل هذا العمل نورًا وهداية لنا ولكم، وأن يفتح علينا فتوح العارفين في تدبر آياته وتجويد حروفه.
+            ✨
+        </p>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "أَفَلَا يَتَدَبَّرُونَ الْقُرْآنَ أَمْ عَلَىٰ قُلُوبٍ أَقْفَالُهَا" -
+                (محمد: 24). التدبر يبدأ بإتقان التلاوة!
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson1" class="lecture-content lesson1-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>1. أحكام الاستعاذة والبسملة 🤲</h1>
+        <p style="text-align: center; color: #795548; font-size: 18px; margin-bottom: 25px;">
+            تعلم القواعد الأساسية للبدء بتلاوة القرآن الكريم.
+        </p>
+        <div class="accordion">
+            <div class="card-accordion">
+                <h2>أولاً: الاستعاذة</h2>
+                <div class="content-accordion">
+                    <p>
+                        هي قول: <code>أعوذ بالله من الشيطان الرجيم</code>. وهي واجبة قبل البدء بالقراءة.
+                        <br> <strong>مواضعها:</strong> تُطلب عند بدء قراءة القرآن الكريم، سواء كان من أول السورة أو من
+                        وسطها.
+                        <br> <strong>حالاتها:</strong>
+                        <br> 1. <strong>الجهر:</strong> عند البدء بالقراءة علناً وفي المحافل.
+                        <br> 2. <strong>الإسرار:</strong> عند القراءة سراً، أو في الصلاة، أو عند البدء من وسط السورة ولم
+                        يكن القارئ الأول.
+                    </p>
+                </div>
+            </div>
+            <div class="card-accordion">
+                <h2>ثانياً: البسملة</h2>
+                <div class="content-accordion">
+                    <p>
+                        هي قول: <code>بسم الله الرحمن الرحيم</code>.
+                        <br> <strong>مواضعها:</strong>
+                        <br> 1. <strong>وجوبها:</strong> عند البدء من أول أي سورة عدا سورة براءة (التوبة).
+                        <br> 2. <strong>استحبابها:</strong> عند البدء من وسط السورة (مع جواز تركها).
+                        <br> <strong>أوجه الجمع بين الاستعاذة والبسملة وأول السورة:</strong>
+                        <br> 1. قطع الجميع: الوقف على الاستعاذة، ثم الوقف على البسملة، ثم البدء بأول السورة.
+                        <br> 2. وصل الجميع: وصل الاستعاذة بالبسملة، ووصل البسملة بأول السورة.
+                        <br> 3. وصل البسملة بأول السورة وقطع الاستعاذة: الوقف على الاستعاذة، ثم وصل البسملة بأول السورة.
+                        <br> 4. وصل الاستعاذة بالبسملة وقطع أول السورة: وصل الاستعاذة بالبسملة، ثم الوقف عليها، ثم البدء
+                        بأول السورة (هذا الوجه غير جائز عند البدء من أول السورة).
+                    </p>
+                </div>
+            </div>
+            <div class="card-accordion">
+                <h2>ثالثاً: أحكام خاصة</h2>
+                <div class="content-accordion">
+                    <p>
+                        <strong>سورة براءة:</strong> لا بسملة في أولها. وإذا بدأت من وسطها يجوز البسملة أو عدمها.
+                        <br> <strong>حالة الوصل:</strong> إذا وصلت آخر سورة الأنفال بأول سورة براءة، فلك ثلاث أوجه
+                        جائزة: الوقف، السكت اللطيف، الوصل مع الإقلاب.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> أبدأ بها قبل التلاوة، فتدفع عني كل مكروه. لا تظهر في سورة التوبة. فمن أنا؟
+                <br> (الجواب: الاستعاذة والبسملة)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson2" class="lecture-content lesson2-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>2. أحكام النون الساكنة والتنوين 💡</h1>
+        <p class="intro">
+            تُعد أحكام النون الساكنة والتنوين من أهم قواعد التجويد، إذ تمكن القارئ من النطق الصحيح والتلاوة السليمة.
+        </p>
+        <div class="accordion-lesson2">
+            <div class="card-lesson2">
+                <h2>1. الإظهار الحلقي</h2>
+                <div class="content-lesson2">
+                    <p>
+                        يحدث عندما تأتي النون الساكنة أو التنوين قبل أحد حروف الحلق الستة: <strong>أ، هـ، ع، ح، غ،
+                            خ</strong>.
+                        في هذه الحالة، يجب إظهار النون الساكنة أو التنوين دون غنة زائدة.
+                        <br>مثال: <code>مَنْ آمَنَ</code>، <code>مِنْ هَادٍ</code>، <code>كُفُوًا أَحَدٌ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson2">
+                <h2>2. الإدغام</h2>
+                <div class="content-lesson2">
+                    <p>
+                        هو إدخال النون الساكنة أو التنوين في الحرف الذي يليها لتصبحا حرفًا واحدًا مشددًا. وينقسم إلى
+                        قسمين:
+                        <br> أ. <strong>إدغام بغنة:</strong> يحدث مع حروف <strong>يَرْمُلُون</strong> عدا اللام والراء
+                        (أي: <strong>ي، م، ن، و</strong>).
+                        <br>مثال: <code>مَنْ يَعْمَلْ</code>، <code>مِنْ مَالٍ</code>،
+                        <code>عَذَابٌ مِنَ اللَّهِ</code>.
+                        <br> ب. <strong>إدغام بغير غنة:</strong> يحدث مع حرفي <strong>اللام والراء</strong>.
+                        <br>مثال: <code>مِنْ لَدُنَّا</code>، <code>مِنْ رَبِّهِمْ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson2">
+                <h2>3. الإقلاب</h2>
+                <div class="content-lesson2">
+                    <p>
+                        يحدث عندما تأتي النون الساكنة أو التنوين قبل حرف <strong>الباء (ب)</strong>.
+                        تقلب النون الساكنة أو التنوين ميمًا مخفاة بغنة حركتين، مع إطباق الشفتين إطباقًا خفيفًا.
+                        <br>مثال: <code>مِن بَعدِ</code>، <code>سَمِيعًا بَصِيرًا</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson2">
+                <h2>4. الإخفاء الحقيقي</h2>
+                <div class="content-lesson2">
+                    <p>
+                        يحدث عندما تأتي النون الساكنة أو التنوين قبل باقي الحروف الهجائية التي ليست من حروف الإظهار أو
+                        الإدغام أو الإقلاب. وهي 15 حرفًا (أوائل كلمات هذا البيت: <strong>صِفْ ذَا ثَنَا كَمْ جَادَ
+                            شَخْصٌ قَدْ سَمَا دُمْ طَيِّبًا زِدْ فِي تُقَى ضَعْ ظَالِمَا</strong>).
+                        في هذه الحالة، تكون النون الساكنة أو التنوين بين الإظهار والإدغام، مع غنة بمقدار حركتين.
+                        <br>مثال: <code>أَنْصَارًا</code>، <code>مَن ذَا</code>، <code>مَاكِثِينَ فِيهِ</code>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ" (النور: 35). تخيل جمال النور،
+                وتخيل كيف أن إتقان أحكام النون الساكنة والتنوين يضيء تلاوتك! ✨
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson3" class="lecture-content lesson3-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>3. أحكام الميم الساكنة 📝</h1>
+        <p style="text-align: center; color: #795548; font-size: 18px; margin-bottom: 25px;">
+            للميم الساكنة ثلاثة أحكام رئيسية عند التقائها بحروف الهجاء.
+        </p>
+        <div class="accordion-lesson3">
+            <div class="card-lesson3">
+                <h2>1. الإخفاء الشفوي</h2>
+                <div class="content-lesson3">
+                    <p>
+                        يحدث عندما تأتي الميم الساكنة قبل حرف <strong>الباء (ب)</strong>.
+                        يتم إخفاء الميم الساكنة عند الباء مع غنة بمقدار حركتين، ويتم ذلك بتطبيق الشفتين بخفة.
+                        <br>مثال: <code>وَمَن يَعْتَصِمْ بِاللَّهِ</code>، <code>وَمَا هُم بِخَارِجِينَ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson3">
+                <h2>2. الإدغام الشفوي (إدغام مثلين صغير)</h2>
+                <div class="content-lesson3">
+                    <p>
+                        يحدث عندما تأتي الميم الساكنة قبل حرف <strong>الميم المتحركة (م)</strong>.
+                        تُدغم الميم الساكنة في الميم المتحركة لتصبح ميمًا واحدة مشددة بغنة أكمل ما تكون، بمقدار حركتين.
+                        <br>مثال: <code>كَمْ مِن فِئَةٍ</code>، <code>لَكُمْ مَا كَسَبْتُمْ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson3">
+                <h2>3. الإظهار الشفوي</h2>
+                <div class="content-lesson3">
+                    <p>
+                        يحدث عندما تأتي الميم الساكنة قبل أي حرف من حروف الهجاء عدا الباء والميم.
+                        تُظهر الميم الساكنة عند هذه الحروف دون غنة زائدة، مع إحكام النطق بها.
+                        <br>مثال: <code>هُمْ فِيهَا</code>، <code>أَمْ لَمْ تُنذِرْهُمْ</code>،
+                        <code>وَلَكُمُ الْأَرْضَ</code>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> أنا ميم ساكنة، إذا أتت بعدي أختي الميم، أصبحنا حرفًا واحدًا. فمن أنا؟
+                <br> (الجواب: إدغام المثلين الصغير)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson4" class="lecture-content lesson4-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>4. أحكام المدود 📏</h1>
+        <p class="intro-lesson4">
+            المد هو إطالة الصوت بحرف من حروف المد الثلاثة (الألف الساكنة المفتوح ما قبلها، الواو الساكنة المضموم ما
+            قبلها، الياء الساكنة المكسور ما قبلها).
+        </p>
+        <div class="accordion-lesson4">
+            <div class="card-lesson4">
+                <h2>المد الأصلي (الطبيعي)</h2>
+                <div class="content-lesson4">
+                    <p>
+                        هو المد الذي لا يتوقف على سبب من همز أو سكون، ولا تقوم ذات الحرف إلا به. يمد بمقدار حركتين.
+                        <br>مثال: <code>قَالُوا</code>، <code>فِي</code>، <code>نُوحِيهَا</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson4">
+                <h2>المد الفرعي</h2>
+                <div class="content-lesson4">
+                    <p>
+                        هو المد الذي يتوقف على سبب من همز أو سكون، وينقسم إلى:
+                        <br><strong>أ. المد بسبب الهمز:</strong>
+                        <br> - <strong>المد المتصل:</strong> أن يأتي حرف المد وبعده همزة في كلمة واحدة. يمد بمقدار 4 أو
+                        5 حركات (وجوباً). مثال: <code>السَّمَاءُ</code>، <code>جَاءَ</code>.
+                        <br> - <strong>المد المنفصل:</strong> أن يأتي حرف المد في آخر كلمة والهمزة في أول الكلمة التي
+                        تليها. يمد بمقدار 4 أو 5 حركات (جوازاً). مثال: <code>يَا أَيُّهَا</code>،
+                        <code>قَالُوا آمَنَّا</code>.
+                        <br> - <strong>مد البدل:</strong> أن تتقدم الهمزة على حرف المد. يمد بمقدار حركتين. مثال:
+                        <code>آمَنُوا</code>، <code>إِيمَانًا</code>، <code>أُوتُوا</code>.
+                        <br><strong>ب. المد بسبب السكون:</strong>
+                        <br> - <strong>المد اللازم:</strong> أن يأتي حرف المد وبعده حرف ساكن سكوناً لازماً (أصلياً). يمد
+                        بمقدار 6 حركات.
+                        <br> - <strong>المد العارض للسكون:</strong> أن يأتي حرف المد وبعده حرف ساكن سكوناً عارضاً بسبب
+                        الوقف. يمد بمقدار 2 أو 4 أو 6 حركات. مثال: <code>الْعَالَمِينَ</code>، <code>تَعْلَمُونَ</code>.
+                        <br> - <strong>مد اللين:</strong> أن يأتي حرف الواو الساكنة المفتوح ما قبلها أو الياء الساكنة
+                        المفتوح ما قبلها، وبعدهما سكون عارض بسبب الوقف. يمد بمقدار 2 أو 4 أو 6 حركات. مثال:
+                        <code>خَوْفٍ</code>، <code>بَيْتٍ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson4">
+                <h2>أنواع المد اللازم</h2>
+                <div class="content-lesson4">
+                    <p>
+                        المد اللازم هو أن يأتي بعد حرف المد حرف ساكن سكوناً أصلياً (ثابتاً). يمد وجوباً بمقدار 6 حركات.
+                        <br><strong>أقسامه:</strong>
+                        <br>1. <strong>المد اللازم الكلمي المثقل:</strong> يحدث عندما يأتي بعد حرف المد حرف مشدد في كلمة
+                        واحدة.
+                        <br>مثال: <code>الْحَاقَّةُ</code>، <code>الطَّامَّةُ</code>، <code>الضَّالِّينَ</code>.
+                        <br>2. <strong>المد اللازم الكلمي المخفف:</strong> يحدث عندما يأتي بعد حرف المد حرف ساكن غير
+                        مشدد في كلمة واحدة.
+                        <br>مثال: <code>آلْآنَ</code> (في موضعين فقط في القرآن).
+                        <br>3. <strong>المد اللازم الحرفي المثقل:</strong> يحدث في فواتح السور عندما يكون الحرف المقطع
+                        يحتوي على حرف مد وبعده حرف مشدد.
+                        <br>مثال: <code>الم</code> (ألف لام ميم - اللام تحتوي على مد والميم مشددة).
+                        <br>4. <strong>المد اللازم الحرفي المخفف:</strong> يحدث في فواتح السور عندما يكون الحرف المقطع
+                        يحتوي على حرف مد وبعده حرف ساكن غير مشدد.
+                        <br>مثال: <code>ص</code> (صاد)، <code>ق</code> (قاف)، <code>ن</code> (نون).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="quranic-insight">
+          </div>
+    </footer>
+    </div>
+
+    <div id="lecture-lesson5" class="lecture-content lesson5-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>5. صفات الحروف 🗣️</h1>
+        <p class="intro-lesson5">
+            صفات الحروف هي الكيفيات التي تعرض للحرف عند النطق به، وهي تفرق بين الحروف المشتركة في المخرج وتميز بعضها عن
+            بعض.
+        </p>
+        <div class="accordion-lesson5">
+            <div class="card-lesson5">
+                <h2>الصفات التي لها ضد</h2>
+                <div class="content-lesson5">
+                    <p>
+                        1. <strong>الهمس وضده الجهر:</strong>
+                        <br> - الهمس: جريان النفس عند النطق بالحرف لضعف الاعتماد على المخرج. (حروفه: فحثه شخص سكت).
+                        <br> - الجهر: انحباس جريان النفس لقوة الاعتماد على المخرج. (باقي الحروف).
+                        <br>2. <strong>الشدة والتوسط وضدهما الرخاوة:</strong>
+                        <br> - الشدة: انحباس جريان الصوت عند النطق بالحرف. (حروفه: أجد قط بكت).
+                        <br> - التوسط: اعتدال جريان الصوت. (حروفه: لن عمر).
+                        <br> - الرخاوة: جريان الصوت عند النطق بالحرف. (باقي الحروف).
+                        <br>3. <strong>الاستعلاء وضده الاستفال:</strong>
+                        <br> - الاستعلاء: ارتفاع أقصى اللسان إلى الحنك الأعلى عند النطق بالحرف. (حروفه: خص ضغط قظ).
+                        <br> - الاستفال: انخفاض أقصى اللسان عن الحنك الأعلى. (باقي الحروف).
+                        <br>4. <strong>الإطباق وضده الانفتاح:</strong>
+                        <br> - الإطباق: انحصار الصوت بين اللسان والحنك الأعلى. (حروفه: ص، ض، ط، ظ).
+                        <br> - الانفتاح: انفتاح ما بين اللسان والحنك الأعلى. (باقي الحروف).
+                        <br>5. <strong>الإذلاق وضده الإصمات:</strong>
+                        <br> - الإذلاق: سهولة النطق بالحرف لخروجه من ذلق اللسان أو الشفتين. (حروفه: فر من لب).
+                        <br> - الإصمات: ثقل النطق بالحرف لعدم خروجه من ذلق اللسان أو الشفتين. (باقي الحروف).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson5">
+                <h2>الصفات التي لا ضد لها</h2>
+                <div class="content-lesson5">
+                    <p>
+                        1. <strong>الصفير:</strong> صوت يشبه صوت الطائر. (حروفه: ص، ز، س).
+                        <br>2. <strong>القلقلة:</strong> اضطراب المخرج عند النطق بالحرف الساكن بحيث يُسمع له نبرة قوية.
+                        (حروفه: قطب جد).
+                        <br>3. <strong>اللين:</strong> سهولة خروج الحرف من غير كلفة. (حرفا الواو والياء الساكنتان
+                        المفتوح ما قبلهما).
+                        <br>4. <strong>الانحراف:</strong> ميل الحرف عن مخرجه. (حرفا اللام والراء).
+                        <br>5. <strong>التكرير:</strong> ارتعاد رأس اللسان عند النطق بالحرف. (حرف الراء).
+                        <br>6. <strong>التفشي:</strong> انتشار صوت الشين في الفم. (حرف الشين).
+                        <br>7. <strong>الاستطالة:</strong> امتداد صوت الضاد في مخرجها. (حرف الضاد).
+                        <br>8. <strong>الخفاء:</strong> خفاء الحرف عند النطق به. (حروف المد الثلاثة والهاء).
+                        <br>9. <strong>الغنة:</strong> صوت يخرج من الخيشوم. (حرفا النون والميم).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> أنا صفة لا ضد لي، أحدث صوتًا يشبه صوت الطائر. من أنا؟
+                <br> (الجواب: الصفير)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson6" class="lecture-content lesson6-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>6. مخارج الحروف 📍</h1>
+        <p class="intro-lesson6">
+            مخارج الحروف هي الأماكن التي يخرج منها الحرف، والتي بها يتميز عن غيره. وهي خمسة مخارج رئيسية تندرج تحتها
+            مخارج فرعية.
+        </p>
+        <div class="accordion-lesson6">
+            <div class="card-lesson6">
+                <h2>1. الجوف</h2>
+                <div class="content-lesson6">
+                    <p>
+                        هو الخلاء الواقع داخل الفم والحلق. ويخرج منه حروف المد الثلاثة:
+                        <br> - الألف الساكنة المفتوح ما قبلها (<code>قَا</code>لَ)
+                        <br> - الواو الساكنة المضموم ما قبلها (<code>قُولُوا</code>)
+                        <br> - الياء الساكنة المكسور ما قبلها (<code>قِيلَ</code>)
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson6">
+                <h2>2. الحلق</h2>
+                <div class="content-lesson6">
+                    <p>
+                        فيه ثلاثة مخارج لستة أحرف:
+                        <br> - <strong>أقصى الحلق:</strong> (أبعده عن الفم) ويخرج منه: <code>الهمزة والهاء</code> (ء،
+                        هـ).
+                        <br> - <strong>وسط الحلق:</strong> ويخرج منه: <code>العين والحاء</code> (ع، ح).
+                        <br> - <strong>أدنى الحلق:</strong> (أقربه إلى الفم) ويخرج منه: <code>الغين والخاء</code> (غ،
+                        خ).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson6">
+                <h2>3. اللسان</h2>
+                <div class="content-lesson6">
+                    <p>
+                        فيه عشرة مخارج لثمانية عشر حرفاً:
+                        <br> - <strong>أقصى اللسان (مع ما يحاذيه من الحنك الأعلى):</strong>
+                        <br> &nbsp;&nbsp; - القاف (ق): أقصى اللسان وما فوقه من الحنك اللحمي.
+                        <br> &nbsp;&nbsp; - الكاف (ك): أقصى اللسان وما فوقه من الحنك اللحمي والعظمي.
+                        <br> - <strong>وسط اللسان (مع ما يحاذيه من الحنك الأعلى):</strong>
+                        <br> &nbsp;&nbsp; - الجيم والشين والياء غير المدية (ج، ش، ي).
+                        <br> - <strong>حافة اللسان:</strong>
+                        <br> &nbsp;&nbsp; - الضاد (ض): من إحدى حافتي اللسان أو كلتيهما مع الأضراس العليا.
+                        <br> &nbsp;&nbsp; - اللام (ل): من أدنى حافتي اللسان إلى منتهى طرفه.
+                        <br> - <strong>طرف اللسان:</strong>
+                        <br> &nbsp;&nbsp; - النون (ن): من طرف اللسان مع ما يحاذيه من لثة الأسنان العليا.
+                        <br> &nbsp;&nbsp; - الراء (ر): من طرف اللسان مع شيء من ظهره مع لثة الأسنان العليا.
+                        <br> &nbsp;&nbsp; - الطاء والدال والتاء (ط، د، ت): من طرف اللسان مع أصول الثنايا العليا.
+                        <br> &nbsp;&nbsp; - الصاد والزاي والسين (ص، ز، س): من طرف اللسان مع ما بين الثنايا العليا
+                        والسفلى (مع إبقاء فرجة يسيرة).
+                        <br> &nbsp;&nbsp; - الظاء والذال والثاء (ظ، ذ، ث): من طرف اللسان مع أطراف الثنايا العليا.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson6">
+                <h2>4. الشفتان</h2>
+                <div class="content-lesson6">
+                    <p>
+                        فيهما مخرجان لأربعة أحرف:
+                        <br> - <strong>الفاء (ف):</strong> من باطن الشفة السفلى وأطراف الثنايا العليا.
+                        <br> - <strong>الواو غير المدية والباء والميم (و، ب، م):</strong> من الشفتين معاً.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson6">
+                <h2>5. الخيشوم</h2>
+                <div class="content-lesson6">
+                    <p>
+                        هو أقصى الأنف من الداخل. ويخرج منه صوت الغنة، وهي صفة للنون والميم المشددتين والمخفاتين
+                        والمدغمتين.
+                        <br> لا يخرج منه حرف مستقل، بل هو مكمل لمخرج النون والميم.
+                    </p>
+                </div>
+            </div>
+            <div class="image">
+                <img src="imgs/letters_outers.jpg" style="width: 100%; max-width: 600px; border-radius: 10px;"
+                    alt="صورة توضيحية لمخارج الحروف">
+                <p style="font-size: 14px; color: #555; margin-top: 10px;">شكل يوضح مخارج الحروف الرئيسية.</p>
+            </div>
+        </div>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا" - (المزمل: 4). الترتيل هو تلاوة القرآن
+                على مكث وبيان للحروف، وهذا لا يتحقق إلا بمعرفة مخارجها وصفاتها.
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson7" class="lecture-content lesson7-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>7. المتماثلان والمتجانسان والمتقاربان 🤝</h1>
+        <div class="accordion-lesson7">
+            <div class="card-lesson7">
+                <h2>1. المتماثلان</h2>
+                <div class="content-lesson7">
+                    <p>
+                        هما الحرفان اللذان اتحدا في المخرج والصفة والاسم والرسم.
+                        <br><strong>أمثلة:</strong>
+                        <br>- <code>اضْرِبْ بِعَصَاكَ</code> (الباء الساكنة والباء المتحركة): حكمهما الإدغام وجوبًا.
+                        <br>- <code>قَدْ دَخَلُوا</code> (الدال الساكنة والدال المتحركة): حكمهما الإدغام وجوبًا.
+                        <br> <strong>أنواعهما:</strong>
+                        <br>- <strong>صغير:</strong> الأول ساكن والثاني متحرك (حكمه الإدغام غالبًا).
+                        <br>- <strong>كبير:</strong> الح حرفان متحركان (حكمه الإظهار غالبًا).
+                        <br>- <strong>مطلق:</strong> الأول متحرك والثاني ساكن (حكمه الإظهار دائمًا).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson7">
+                <h2>2. المتجانسان</h2>
+                <div class="content-lesson7">
+                    <p>
+                        هما الحرفان اللذان اتحدا في المخرج واختلفا في بعض الصفات.
+                        <br><strong>أمثلة:</strong>
+                        <br>- <code>إِذْ ظَلَمُوا</code> (الذال والظاء): يخرجان من مخرج واحد (طرف اللسان وأطراف الثنايا
+                        العليا) ويختلفان في بعض الصفات.
+                        <br>- <code>قُلْ رَبِّ</code> (اللام والراء): يخرجان من مخرج واحد (طرف اللسان) ويختلفان في
+                        الصفات.
+                        <br> <strong>أشهر حالات الإدغام في المتجانسين (الصغير):</strong>
+                        <br> - الدال والتاء (<code>قَد تَّبَيَّنَ</code>)
+                        <br> - التاء والطاء (<code>هَمَّت طَّائِفَةٌ</code>)
+                        <br> - الطاء والدال (<code>بَسَطْتَ</code>)
+                        <br> - الثاء والذال (<code>يَلْهَثْ ذَلِكَ</code>)
+                        <br> - الذال والظاء (<code>إِذْ ظَلَمُوا</code>)
+                        <br> - الباء والميم (<code>ارْكَبْ مَعَنَا</code>)
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson7">
+                <h2>3. المتقاربان</h2>
+                <div class="content-lesson7">
+                    <p>
+                        هما الحرفان اللذان تقاربا في المخرج والصفة، أو في المخرج فقط، أو في الصفة فقط.
+                        <br><strong>أمثلة:</strong>
+                        <br>- <code>قُلْ رَبِّ</code> (اللام والراء): تقاربا في المخرج.
+                        <br>- <code>مِنْ نُورٍ</code> (النون والراء): تقاربا في المخرج والصفة.
+                        <br> <strong>أشهر حالات الإدغام في المتقاربين (الصغير):</strong>
+                        <br> - اللام والراء (<code>قُل رَبِّ</code>)
+                        <br> - القاف والكاف (<code>أَلَمْ نَخْلُقكُّمْ</code> - خلاف فيها).
+                        <br> - النون والميم (<code>لَنْ نَجْعَلَ لَكُمْ</code> - لا يدغم في رواية حفص إلا في بعض الكلمات
+                        مثل <code>يس</code> و <code>ن</code>).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> حرفان اتفقا في المخرج واختلفا في الصفات، ما هو حكمهما؟
+                <br> (الجواب: المتجانسان)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson8" class="lecture-content lesson8-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>8. التفخيم والترقيق ⬆️⬇️</h1>
+        <div class="accordion-lesson8">
+            <div class="card-lesson8">
+                <h2>1. التفخيم (الغليظ)</h2>
+                <div class="content-lesson8">
+                    <p>
+                        هو تسمين الحرف وتغليظه عند النطق به، وذلك بامتلاء الفم بصدى الحرف.
+                        <br><strong>حروف التفخيم الدائمة (حروف الاستعلاء):</strong> <code>خص ضغط قظ</code> (الخاء،
+                        الصاد، الضاد، الغين، الطاء، القاف، الظاء). هذه الحروف تُفخم دائمًا.
+                        <br><strong>أمثلة:</strong> <code>خَالِدُونَ</code>، <code>صَدَقَ</code>، <code>ضَرَبَ</code>،
+                        <code>غَيْرِ</code>، <code>طَبَقٍ</code>، <code>قَالَ</code>، <code>ظَلَمَ</code>.
+                        <br><strong>مراتب التفخيم:</strong> تختلف قوة التفخيم حسب حركة الحرف وما يتبعه.
+                        <br>1. المفتوح بعده ألف (<code>طَائِفَةٌ</code>)
+                        <br>2. المفتوح وليس بعده ألف (<code>قَدْ</code>)
+                        <br>3. المضموم (<code>قُتِلَ</code>)
+                        <br>4. الساكن (ينظر لحركة الحرف الذي قبله، أو بعده إذا كان حرف مد)
+                        <br>5. المكسور (أقل درجات التفخيم، مثل <code>قِيلَ</code>)
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson8">
+                <h2>2. الترقيق (الرقيق)</h2>
+                <div class="content-lesson8">
+                    <p>
+                        هو تنحيل الحرف وتخفيفه عند النطق به، وعدم امتلاء الفم بصدى الحرف.
+                        <br>جميع حروف الهجاء عدا حروف التفخيم الدائمة (خص ضغط قظ) وحروف الترقيق الدائمة (ألمفتاح الألف
+                        والهمزة والياء) هي حروف مرققة دائمًا.
+                        <br><strong>أمثلة:</strong> <code>الباء</code>، <code>التاء</code>، <code>الثاء</code>،
+                        <code>الجيم</code>، <code>الهاء</code>، <code>الدال</code>، <code>الذال</code>،
+                        <code>الزاي</code>، <code>السين</code>، <code>الشين</code>، <code>العين</code>،
+                        <code>الفاء</code>، <code>الكاف</code>، <code>اللام</code>، <code>الميم</code>،
+                        <code>النون</code>، <code>الواو</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson8">
+                <h2>3. حروف تفخم تارة وترقق تارة (لام لفظ الجلالة والراء)</h2>
+                <div class="content-lesson8">
+                    <p>
+                        <strong>أ. لام لفظ الجلالة (الله):</strong>
+                        <br>- <strong>تفخم:</strong> إذا سُبقت بفتح أو ضم. مثال: <code>قَالَ اللَّهُ</code>،
+                        <code>عَبْدُ اللَّهِ</code>.
+                        <br>- <strong>ترقق:</strong> إذا سُبقت بكسر. مثال: <code>بِسْمِ اللَّهِ</code>.
+                        <br><strong>ب. الراء:</strong>
+                        <br>- <strong>تفخم:</strong>
+                        <br> &nbsp;&nbsp; - إذا كانت مفتوحة أو مضمومة. مثال: <code>رَبِّ</code>، <code>رُزِقُوا</code>.
+                        <br> &nbsp;&nbsp; - إذا كانت ساكنة وقبلها فتح أو ضم. مثال: <code>مَرْيَمَ</code>،
+                        <code>قُرْآنٌ</code>.
+                        <br> &nbsp;&nbsp; - إذا كانت ساكنة وقبلها كسر عارض وبعدها حرف استعلاء (خص ضغط قظ) ليس مكسوراً.
+                        مثال: <code>مِرْصَادٍ</code>، <code>لَبِالْمِرْصَادِ</code>.
+                        <br> &nbsp;&nbsp; - إذا كانت ساكنة سكوناً عارضاً للوقف وقبلها حرف مفتوح أو مضموم أو ساكن وقبله
+                        فتح أو ضم. مثال: <code>الْقَمَرُ</code> (عند الوقف)، <code>النَّارِ</code> (عند الوقف).
+                        <br>- <strong>ترقق:</strong>
+                        <br> &nbsp;&nbsp; - إذا كانت مكسورة. مثال: <code>رِزْقًا</code>.
+                        <br> &nbsp;&nbsp; - إذا كانت ساكنة وقبلها كسر أصلي وليس بعدها حرف استعلاء. مثال:
+                        <code>فِرْعَوْنَ</code>.
+                        <br> &nbsp;&nbsp; - إذا كانت ساكنة سكوناً عارضاً للوقف وقبلها ياء ساكنة أو كسر. مثال:
+                        <code>قَدِيرٌ</code> (عند الوقف)، <code>بَصِيرٌ</code> (عند الوقف).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "وَالْقَمَرِ إِذَا اتَّسَقَ" (الانشقاق: 18). تفخيم الراء في "القمر" مثل
+                ضوء القمر الممتلئ، بينما ترقيقها في "القمر" الممدودة بياء المد (مثل "الناسِ") كضوء خافت ورقيق.
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson9" class="lecture-content lesson9-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>9. اللامات في القرآن 🌙☀️</h1>
+        <div class="accordion-lesson9">
+            <div class="card-lesson9">
+                <h2>1. لام أل التعريف (اللام الشمسية والقمرية)</h2>
+                <div class="content-lesson9">
+                    <p>
+                        هي لام التعريف التي تدخل على الأسماء، ولها حكمان:
+                        <br>- <strong>اللام القمرية (الإظهار القمري):</strong> تظهر اللام إذا جاء بعدها أحد حروف
+                        <code>إِبْغِ حَجَّكَ وَخَفْ عَقِيمَهُ</code>. وعددها 14 حرفاً.
+                        <br>مثال: <code>الْقَمَرُ</code>، <code>الْبَيْتُ</code>.
+                        <br>- <strong>اللام الشمسية (الإدغام الشمسي):</strong> تدغم اللام إذا جاء بعدها أحد الحروف
+                        المتبقية من الهجاء (14 حرفاً)، وهي أوائل كلمات البيت:
+                        <code>طِبْ ثُمَّ صِلْ رَحْمًا تَفُزْ ضِفْ ذَا نِعَمْ دَعْ سُوءَ ظَنٍّ زُرْ شَرِيفًا لِلْكَرَمْ</code>.
+                        <br>مثال: <code>الشَّمْسُ</code>، <code>الضُّحَى</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson9">
+                <h2>2. لام الأمر 💡</h2>
+                <div class="content-lesson9">
+                    <p>
+                        هي اللام الساكنة التي تأتي في صيغة الأمر، وتكون في بداية الفعل.
+                        <br><strong>حكمها:</strong>
+                        <br>- <strong>الإظهار:</strong> إذا جاء بعدها أي حرف غير اللام والراء. مثال:
+                        <code>لِيَقْضُوا</code> (الحج)، <code>لِيُنفِقْ</code> (الطلاق)، <code>لِيُؤْمِنُوا</code>.
+                        <br>- <strong>الإدغام:</strong> إذا جاء بعدها حرف اللام أو الراء. مثال: <code>لِّلَّذِينَ</code>
+                        (إدغام اللام في اللام)، <code>لِّرَبِّكَ</code> (إدغام اللام في اللام).
+                        <br>- <strong>ملاحظة:</strong> في رواية حفص، تدغم لام الأمر في اللام فقط، وتظهر عند الراء في
+                        مواضع قليلة مثل <code>ارْجِعُوا</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson9">
+                <h2>3. لام الفعل</h2>
+                <div class="content-lesson9">
+                    <p>
+                        هي اللام الساكنة الواقعة في الفعل، سواء كان الفعل ماضياً، مضارعاً، أو أمراً.
+                        <br><strong>حكمها:</strong>
+                        <br>- <strong>الإظهار:</strong> إذا جاء بعدها أي حرف غير اللام والراء. مثال:
+                        <code>قُلْنَا</code>، <code>يَلْتَقِطْهُ</code>.
+                        <br>- <strong>الإدغام:</strong> إذا جاء بعدها حرف اللام أو الراء (في رواية حفص تدغم في اللام
+                        فقط، وفي الراء في بعض القراءات الأخرى). مثال: <code>قُل لَّكُمْ</code> (إدغام اللام في اللام).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson9">
+                <h2>4. لام الحرف</h2>
+                <div class="content-lesson9">
+                    <p>
+                        هي اللام الساكنة التي تكون في بعض الحروف مثل <code>هل</code> و <code>بل</code>.
+                        <br><strong>حكمها:</strong>
+                        <br>- <strong>الإظهار:</strong> في الغالب. مثال: <code>هَلْ أَتَاكَ</code>،
+                        <code>بَلْ نَحْنُ</code>.
+                        <br>- <strong>الإدغام:</strong> إذا جاء بعدها حرف اللام أو الراء. مثال:
+                        <code>هَل لَّكُمْ</code>، <code>بَل رَّانَ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson9">
+                <h2>5. لام الاسم</h2>
+                <div class="content-lesson9">
+                    <p>
+                        هي اللام الساكنة التي تكون جزءاً أصلياً من بنية الاسم.
+                        <br><strong>حكمها:</strong> <strong>الإظهار</strong> دائماً. مثال: <code>سُلْطَانٌ</code>،
+                        <code>أَلْفٌ</code>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> أرى الشمس لكن لا أرى القمر، أندمج في الحرف الذي يأتي بعدي. من أنا؟
+                <br> (الجواب: اللام الشمسية)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson10" class="lecture-content lesson10-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>10. الوقف والابتداء 🛑▶️</h1>
+        <div class="accordion-lesson10">
+            <div class="card-lesson10">
+                <h2>تعريف الوقف والابتداء</h2>
+                <div class="content-lesson10">
+                    <p>
+                        <strong>الوقف:</strong> هو قطع الصوت على آخر الكلمة زمناً يسيراً، يتنفس فيه القارئ، ثم يستأنف
+                        القراءة، بنية العودة إليها.
+                        <br><strong>الابتداء:</strong> هو البدء بالقراءة بعد الوقف أو بعد انقطاعها.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson10">
+                <h2>أنواع الوقف</h2>
+                <div class="content-lesson10">
+                    <p>
+                        1. <strong>الوقف الاختياري:</strong> وهو الوقف الذي يكون باختيار القارئ وقصده، وينقسم إلى:
+                        <br> أ. <strong>تام:</strong> الوقف على كلام تم معناه ولا يتعلق بما بعده لفظاً ولا معنى. ويحسن
+                        الوقف عليه والابتداء بما بعده. (علامته: م).
+                        <br> ب. <strong>كافٍ:</strong> الوقف على كلام تم معناه، وتعلق بما بعده معنى لا لفظاً. ويحسن
+                        الوقف عليه والابتداء بما بعده. (علامته: قلى أو لا).
+                        <br> ج. <strong>حسن:</strong> الوقف على كلام تم معناه، وتعلق بما بعده لفظاً ومعنى. يحسن الوقف
+                        عليه ولكن لا يحسن الابتداء بما بعده إلا إذا كان رأس آية.
+                        <br> د. <strong>قبيح:</strong> الوقف على كلام لم يتم معناه، أو أدى إلى تغيير المعنى. لا يحسن
+                        الوقف عليه، ويجب العودة إلى ما قبل موضع الوقف.
+                        <br>2. <strong>الوقف الاضطراري:</strong> وهو الوقف الذي يعرض للقارئ بسبب ضيق نفس أو عطاس أو
+                        نسيان أو غيره. يجب على القارئ أن يعود إلى ما قبل موضع الوقف ليستأنف القراءة بشكل صحيح.
+                        <br>3. <strong>الوقف الاختباري:</strong> وهو الوقف الذي يكون بقصد اختبار القارئ أو تعليمه.
+                        <br>4. <strong>الوقف الانتظاري:</strong> يكون للقارئ الذي يجمع عدة قراءات أو روايات.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson10">
+                <h2>أنواع الابتداء</h2>
+                <div class="content-lesson10">
+                    <p>
+                        يجب أن يكون الابتداء بكلام تام يفيد معنى صحيحاً، ولا يوقع في لبس أو تغيير للمعنى.
+                        <br><strong>أنواعه:</strong>
+                        <br>1. <strong>الابتداء التام:</strong> البدء بكلام مستقل في المعنى، ولا يتعلق بما قبله لفظاً
+                        ولا معنى.
+                        <br>2. <strong>الابتداء الكافي:</strong> البدء بكلام مستقل في اللفظ، ولكنه متعلق بما قبله في
+                        المعنى.
+                        <br>3. <strong>الابتداء الحسن:</strong> البدء بكلام متعلق بما قبله لفظاً ومعنى، ولا يكون إلا في
+                        رؤوس الآي أو بعد وقف حسن.
+                        <br>4. <strong>الابتداء القبيح:</strong> البدء بكلام لا يفيد معنى صحيحاً، أو يفسد المعنى.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ" (الإسراء: 36). كما أننا لا نقف
+                عند معلومة إلا بعد فهمها، كذلك لا نقف في القرآن إلا عند معنى كامل وواضح.
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson11" class="lecture-content lesson11-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>11. أحكام متفرقة في التجويد 🧩</h1>
+        <div class="accordion-lesson11">
+            <div class="card-lesson11">
+                <h2>أ. النون والميم المشددتان (الغنة)</h2>
+                <div class="content-lesson11">
+                    <p>
+                        إذا جاءت النون أو الميم مشددتين (<code>نّ</code>، <code>مّ</code>)، فإنه يجب إظهار الغنة فيهما
+                        بمقدار حركتين، وهي أكمل ما تكون.
+                        <br>مثال: <code>إِنَّ</code>، <code>ثُمَّ</code>.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson11">
+                <h2>ب. أحكام الراءات (إعادة سريعة)</h2>
+                <div class="content-lesson11">
+                    <p>
+                        سبق تفصيلها في درس التفخيم والترقيق. ملخصها:
+                        <br>- <strong>تفخم:</strong> إذا كانت مفتوحة، مضمومة، ساكنة وما قبلها مفتوح أو مضموم، أو ساكنة
+                        وما قبلها كسر عارض وبعدها حرف استعلاء في كلمة واحدة.
+                        <br>- <strong>ترقق:</strong> إذا كانت مكسورة، ساكنة وما قبلها كسر أصلي وليس بعدها حرف استعلاء،
+                        أو ساكنة وما قبلها ياء ساكنة.
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson11">
+                <h2>ج. الإدغام الشمسي والقمري (إعادة سريعة)</h2>
+                <div class="content-lesson11">
+                    <p>
+                        سبق تفصيلها في درس اللامات. ملخصها:
+                        <br>- <strong>اللام الشمسية:</strong> تدغم اللام إذا جاء بعدها أحد الحروف الشمسية (14 حرفاً).
+                        <br>- <strong>اللام القمرية:</strong> تظهر اللام إذا جاء بعدها أحد الحروف القمرية (14 حرفاً).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson11">
+                <h2>د. التقاء الساكنين</h2>
+                <div class="content-lesson11">
+                    <p>
+                        إذا التقى ساكنان وكان الأول حرف مد، فإن حرف المد يُحذف لفظاً للتخلص من التقاء الساكنين.
+                        <br>مثال: <code>قَالُوا اللَّهُمَّ</code> (تحذف الألف في "قالوا" عند الوصل).
+                        <br>إذا كان الساكن الأول حرفاً صحيحاً، فإنه يُحرك بالكسر غالباً.
+                        <br>مثال: <code>قُمِ اللَّيْلَ</code> (تحرك الميم بالكسر).
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson11">
+                <h2>هـ. هاء الكناية (هاء الضمير)</h2>
+                <div class="content-lesson11">
+                    <p>
+                        هي الهاء التي تدل على المفرد المذكر الغائب.
+                        <br><strong>حكمها:</strong>
+                        <br>- <strong>الصلة (المد):</strong> إذا وقعت بين متحركين، تُمد بمقدار حركتين (مد صلة صغرى) أو
+                        تُمد بمقدار 4 أو 5 حركات إذا أتى بعدها همزة (مد صلة كبرى).
+                        <br>مثال: <code>لَهُ مَا</code> (صلة صغرى)، <code>عَلَيْهِ إِلَّا</code> (صلة كبرى).
+                        <br>- <strong>عدم الصلة:</strong> إذا وقعت بين ساكنين، أو كان ما قبلها ساكناً، أو كان ما بعدها
+                        ساكناً.
+                        <br>مثال: <code>عنه</code>، <code>فيه الهدى</code>.
+                        <br><strong>استثناءات:</strong> هناك بعض الكلمات المستثناة من هذه القاعدة في رواية حفص.
+                        <br>مثال: <code>يَرْضَهُ لَكُمْ</code> (لا تُمد رغم وقوعها بين متحركين).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle">
+                <strong>لغز تجويدي:</strong> أنا حرفان التقيا ساكنين، الأول حرف مد. ما هو مصيري عند الوصل؟
+                <br> (الجواب: أحذف لفظًا)
+            </div>
+        </footer>
+    </div>
+
+    <div id="lecture-lesson12" class="lecture-content lesson12-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>12. مقارنات في رواية حفص ⚖️</h1>
+        <div class="accordion-lesson12">
+            <div class="card-lesson12">
+                <h2>ألفاظ خاصة برواية حفص عن عاصم</h2>
+                <div class="content-lesson12">
+                    <p>
+                        تتميز رواية حفص عن عاصم ببعض الألفاظ والقواعد الخاصة التي ينبغي على القارئ إتقانها:
+                        <br>1. <strong>المد المنفصل:</strong> يمد بمقدار 4 أو 5 حركات (جوازاً).
+                        <br>2. <strong>السكتات الأربع الواجبة:</strong> وهي سكتات لطيفة بدون تنفس في أربع مواضع:
+                        <br> - <code>عِوَجَا ۜ قَيِّمًا</code> (الكهف 1-2)
+                        <br> - <code>مَرْقَدِنَا ۜ هَٰذَا</code> (يس 52)
+                        <br> - <code>مَنْ ۜ رَاقٍ</code> (القيامة 27)
+                        <br> - <code>بَلْ ۜ رَانَ</code> (المطففين 14)
+                        <br>3. <strong>الإمالة:</strong> وهي إمالة الألف نحو الياء والفتحة نحو الكسرة. في رواية حفص توجد
+                        إمالة واحدة فقط في كلمة <code>مَجْرَاهَا</code> (هود 41).
+                        <br>4. <strong>الإدغام الخاص:</strong> مثل إدغام النون في الواو في قوله تعالى
+                        <code>يس ۝ وَالْقُرْآنِ الْحَكِيمِ</code> وإدغام النون في الميم في قوله تعالى
+                        <code>ن ۚ وَالْقَلَمِ وَمَا يَسْطُرُونَ</code>.
+                        <br>5. <strong>"تاء التأنيث" في <code>لَاتَ حِينَ</code>:</strong> تُقرأ بالهاء وقفا وبالتاء
+                        وصلا.
+                        <br>6. <strong>"أَأَعْجَمِيٌّ" في فصلت:</strong> تُقرأ بتسهيل الهمزة الثانية مع إدخال ألف بينهما
+                        أو عدمه.
+                        <br>7. <strong>"محياي" في الأنعام:</strong> تُقرأ بإسكان الياء الأولى وفتح الثانية.
+                        <br>8. <strong>"ضعفا" و "ضعف" في الروم:</strong> تُقرأ بالفتح والضم في كلمات محددة.
+                        <br>9. <strong>"آتان" في النمل:</strong> تُقرأ بإثبات الياء عند الوقف وبحذفها عند الوصل.
+                        <br>10. <strong>"سلاسلا" في الدهر:</strong> يجوز فيها الوقف بالألف أو بدونها (بسكون اللام).
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quranic-insight">
+                <strong>لطيفة قرآنية:</strong> "وَلَوْ كَانَ بَعْضُهُمْ لِبَعْضٍ ظَهِيرًا" (الإسراء: 88). كل كلمة في
+                القرآن لها حكمها الخاص، وبعضها يظهر كـ"استثناء" لجمال التلاوة وتميز الرواية.
+            </div>
+        </footer>
+    </div>
+    <div id="lecture-lesson13" class="lecture-content lesson13-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>13. تاء التأنيث والمقطوع والموصول في الرسم العثماني 🌸📖</h1>
+        <p class="intro-lesson13"></p>
+        فهم أحكام تاء التأنيث والمقطوع والموصول في رسم المصحف الشريف لضمان التلاوة الصحيحة.
+        </p>
+        <div class="accordion-lesson13">
+            <div class="card-lesson13">
+                <h2>أولاً: تاء التأنيث في القرآن الكريم</h2>
+                <div class="content-lesson13">
+                    <p>
+                        تاء التأنيث لها شكلان في الرسم العثماني يحددان طريقة الوقف عليها:
+                        <br><br>
+                        <strong>1. التاء المربوطة (ة / ـة)</strong> 🎀✨
+                        <br>• <strong>الشكل:</strong> دائرة فوقها نقطتان (ة) أو (ـة).
+                        <br>• <strong>في الوصل:</strong> تُنطق تاء 🔊. مثال:
+                        <code>رَحْمَةٌ مِّنْ = رَحْمَتُنْ مِّنْ</code>
+                        <br>• <strong>في الوقف:</strong> تُنطق هاء ساكنة 🤫. مثال: <code>رَحْمَةٌ = رَحْمَهْ</code>
+                        <br>• <strong>الحُكم:</strong> هذا هو الأصل في تاء التأنيث.
+                        <br><br>
+                        <strong>2. التاء المبسوطة (المفتوحة) (ت / ـت)</strong> 🌟📜
+                        <br>• <strong>الشكل:</strong> تاء مفتوحة (ت) أو (ـت).
+                        <br>• <strong>في الوصل:</strong> تُنطق تاء 🔊. مثال:
+                        <code>رَحْمَتَ اللَّهِ = رَحْمَتَ اللَّهِ</code>
+                        <br>• <strong>في الوقف:</strong> تُنطق تاء ساكنة 🗣. مثال: <code>رَحْمَتَ = رَحْمَتْ</code>
+                        <br>• <strong>الحُكم:</strong> يجب الوقف عليها بالتاء الساكنة. لا تُنطق هاءً أبدًا عند الوقف. 🚫
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson13">
+                <h2>أهم المواضع للتاء المبسوطة</h2>
+                <div class="content-lesson13">
+                    <p>
+                        <strong>كلمات شائعة مرسومة بالتاء المبسوطة:</strong>
+                        <br>• <code>رَحْمَتَ</code> (7 مواضع) 🤲
+                        <br>• <code>نِعْمَتَ</code> (11 موضع) 🎁
+                        <br>• <code>سُنَّتَ</code> (5 مواضع) 🛣
+                        <br>• <code>لَعْنَتَ</code> (موضعان) 😈
+                        <br>• <code>مَعْصِيَتَ</code> (موضع واحد) 🙅‍♀
+                        <br>• <code>شَجَرَتَ</code> (موضع واحد) 🌳
+                        <br>• <code>غَيَابَتِ</code> (في سورة يوسف) 💧
+                        <br>• <code>فِطْرَتَ</code> (موضع واحد) 🏞
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson13">
+                <h2>ثانياً: المقطوع والموصول في الرسم العثماني</h2>
+                <div class="content-lesson13">
+                    <p>
+                        فهمهما ضروري لتحديد أين يصح الوقف وأين لا يصح، حفاظًا على المعنى القرآني. 🎯
+                        <br><br>
+                        <strong>1. المقطوع (كلمتان منفصلتان)</strong> ↔
+                        <br>• <strong>الشكل:</strong> الكلمتان مفصولتان في الرسم مثال: <code>أَن لَّا</code>
+                        <br>• <strong>الحُكم:</strong> يجوز الوقف على الكلمة الأولى 🚦
+                        <br>• <strong>مثال:</strong> الوقف على "أَن" في <code>وَظَنُّوا أَن لَّا مَلْجَأَ</code>
+                        <br>• <strong>السبب:</strong> الرسم يشير إلى انفصال اللفظ والمعنى في الأصل. 💡
+                        <br><br>
+                        <strong>2. الموصول (كلمة واحدة متصلة)</strong> ➡
+                        <br>• <strong>الشكل:</strong> الكلمتان متصلتان كرسم كلمة واحدة مثال: <code>أَلَّا</code>
+                        <br>• <strong>الحُكم:</strong> لا يجوز الوقف إلا على آخر الكلمة الموصولة 🛑
+                        <br>• <strong>مثال:</strong> لا يجوز الوقف على "أَلْ" في <code>أَلَّا تَعْبُدُوا</code>
+                        <br>• <strong>السبب:</strong> الرسم يشير إلى اتحاد الكلمتين في المعنى واللفظ كأنها كلمة واحدة.
+                        🤝
+                    </p>
+                </div>
+            </div>
+            <div class="card-lesson13">
+                <h2>أمثلة شائعة للمقطوع والموصول</h2>
+                <div class="content-lesson13">
+                    <p>
+                        <strong>أمثلة المقطوع:</strong>
+                        <br>• <code>أَن لَّا</code> (معظم المواضع)
+                        <br>• <code>مِن مَّا</code>
+                        <br>• <code>عَن مَّن</code>
+                        <br>• <code>إِن مَّا</code>
+                        <br>• <code>حَيْثُ مَا</code>
+                        <br><br>
+                        <strong>أمثلة الموصول:</strong>
+                        <br>• <code>أَلَّا</code> (في 4 مواضع معينة)
+                        <br>• <code>إِلَّا</code>
+                        <br>• <code>أَيْنَمَا</code>
+                        <br>• <code>عَمَّا</code>
+                        <br>• <code>مِمَّا</code>
+                        <br>• <code>كُلَّمَا</code>
+                        <br>• <code>فِيمَا</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="quiz-riddle"></div>
+            <strong>لغز تجويدي:</strong> أنا تاء تأنيث، في الوصل أنطق بوضوح، وفي الوقف أصبح هاءً. ولكن أختي لا تتغير
+            أبداً. من نحن؟
+            <br> (الجواب: التاء المربوطة والتاء المبسوطة)
+    </div>
+    </footer>
+    </div>
+
+    <div id="lecture-conclusion" class="lecture-content intro-conclusion-style">
+        <button class="back-btn" onclick="hideLecture()">العودة للدروس</button>
+        <h1>خاتمة: شرف العلم وفضل القرآن 🌟</h1>
+        <p>
+            بعد هذه الرحلة الماتعة مع أنوار التجويد، نصل إلى ختام هذا العمل المبارك، سائلين الله أن يكون زادًا لنا ولكم
+            في طريق إتقان تلاوة كتابه الكريم.
+        </p>
+        <p>
+            إن القرآن الكريم هو حبل الله المتين، ونوره المبين، من تمسك به هُدي، ومن أعرض عنه شقي. حفظ القرآن وتجويده ليس
+            مجرد علم يُكتسب، بل هو شرف يرفع صاحبه في الدنيا والآخرة. فالقارئ الماهر بالقرآن مع السفرة الكرام البررة،
+            وحافظ القرآن يُلبس والداه تاج الوقار يوم القيامة. فكيف لا نسعى جاهدين لإتقان تلاوته والعمل بما فيه؟
+        </p>
+        <p class="poem">
+            <strong>لقد سالَ الجُهدُ في هذا البيانِ جَرى</strong><br>
+            <strong>فَادْعُ بالخَيرِ لِمَن أَهدى له الفِكرا</strong>
+        </p>
+        <p style="margin-top: 20px;">
+            فما هذا الجهد إلا قطرة في بحر علوم القرآن العظيم، ونرجو من الله القبول والإعانة.
+        </p>
+
+        <div class="signature-section">
+            <p><strong>كلمة أخيرة:</strong></p>
+            <p style="margin-bottom: 10px;">وليُصلح هذا العمل من جاد مقولًا، ونصح في عيب، وأكمل نقصًا، فكمال الله
+                وحدَهُ، وبشريتنا تقتضي النقص والسهو.</p>
+            <p style="margin-bottom: 10px;">وكل من انتفع بهذا العمل، أسأل الله أن يبارك له فيه، وأن يجعله نورًا له في
+                دربه.</p>
+            <p style="margin-top: 20px; font-weight: bold;">
+                وأدعوكم ألا تنسوني ووالدي وزوجتي واولادي من صالح دعائكم بأن يُصلحنا الله جميعًا، وأن يرزقنا التقوى والغنى،
+                وأن يجعلنا من أهل القرآن الذين هم أهل الله وخاصته. آمين. 🙏
+            </p>
+        </div>
+        <footer>
+    
+                     </div>
+        </footer>
+    </div>
+
+
+    <footer>
+        <p class="copyright">جميع الحقوق محفوظة &copy; 2025</p>
+        <div style="text-align: center; margin-top: 20px;"></div>
+        <p style="margin-bottom: 15px; font-size: 16px; color: #6d4c41;">تابعونا على وسائل التواصل الاجتماعي للمزيد من
+            دروس التجويد والرياضيات </p>
+        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 15px;">
+            <a href="https://www.facebook.com/share/1CeMQW5o24/" class="social-link facebook" title="فيسبوك">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+            </a>
+            <!-- <a href="#" class="social-link twitter" title="تويتر">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                </svg>
+            </a> -->
+            <a href="https://youtube.com/@esmaeiltantawy8464?si=PrsWn62LBl5V0tcj" class="social-link youtube"
+                title="يوتيوب">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+            </a>
+            <!-- <a href="https://www.instagram.com/esmaeiltantawy8464/" class="social-link instagram" title="إنستغرام">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            </a> -->
+            <!-- <a href="https://telegram.me/share/url?url=@Muhammed_Mostafa_3mer" class="social-link telegram" title="تليجرام">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                </svg>
+            </a> -->
+            <a href="https://wa.me/966549830072/" class="social-link whatsapp" title="واتساب">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.864 3.488" />
+                </svg>
+            </a>
+        </div>
+        <div
+            style="margin-top: 20px; padding: 15px; background: linear-gradient(45deg, #ffcc80, #ffe0b2); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <p style="margin: 0; font-size: 14px; color: #5d4037; font-weight: bold;">
+                📧 للتواصل المباشر: <a style="color: #5d4037;"
+                    href="mailto:ismailtantawy.math@gmail.com">ismailtantawy.math@gmail.com</a>
+            </p>
+            <p style="margin: 5px 0 0 0; font-size: 13px; color: #6d4c41;">
+                🎓 الأستاذ الشيخ إسماعيل طنطاوي - معلم الرياضيات والماث ومجاز بالقراءات العشر الصغرى
+            </p>
+        </div>
+        </div>
+    </footer>
+
+    <script>
+        function showLecture(lessonId) {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('lecture-' + lessonId).style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // يعود لأعلى الصفحة
+        }
+
+        function hideLecture() {
+            document.getElementById('mainContent').style.display = 'block';
+            const lectureContents = document.querySelectorAll('.lecture-content');
+            lectureContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // يعود لأعلى الصفحة
+        }
+
+        // JavaScript for accordion functionality for Lesson 1
+        document.querySelectorAll('.lecture-content.lesson1-style .card-accordion h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 2
+        document.querySelectorAll('.lecture-content.lesson2-style .card-lesson2 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 3
+        document.querySelectorAll('.lecture-content.lesson3-style .card-lesson3 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 4
+        document.querySelectorAll('.lecture-content.lesson4-style .card-lesson4 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 5
+        document.querySelectorAll('.lecture-content.lesson5-style .card-lesson5 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 6
+        document.querySelectorAll('.lecture-content.lesson6-style .card-lesson6 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 7
+        document.querySelectorAll('.lecture-content.lesson7-style .card-lesson7 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 8
+        document.querySelectorAll('.lecture-content.lesson8-style .card-lesson8 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 9
+        document.querySelectorAll('.lecture-content.lesson9-style .card-lesson9 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 10
+        document.querySelectorAll('.lecture-content.lesson10-style .card-lesson10 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 11
+        document.querySelectorAll('.lecture-content.lesson11-style .card-lesson11 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+
+        // JavaScript for accordion functionality for Lesson 12
+        document.querySelectorAll('.lecture-content.lesson12-style .card-lesson12 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+        document.querySelectorAll('.lecture-content.lesson13-style .card-lesson13 h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const card = header.parentElement;
+                card.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
